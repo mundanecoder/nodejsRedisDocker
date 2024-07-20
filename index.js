@@ -8,13 +8,16 @@ const port = 5000;
 let redisClient;
 
 (async () => {
-  redisClient = redis.createClient();
+  redisClient = redis.createClient({
+    url: process.env.REDIS_URL, // Ensure this environment variable is set
+  });
   redisClient.on("error", (err) => {
-    console.log(er, "redis");
+    console.log(err, "redis"); // Corrected typo here
   });
 
   await redisClient.connect();
 })();
+
 server.get("/", function (req, res) {
   res.send("hello world!");
 });
@@ -84,6 +87,6 @@ server.get("/typicode", async function (req, res) {
   }
 });
 
-server.listen(5000, function () {
-  console.log("sever is running on port " + port);
+server.listen(port, function () {
+  console.log("server is running on port " + port);
 });
